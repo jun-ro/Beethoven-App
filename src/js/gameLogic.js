@@ -11,10 +11,6 @@ if(checkForHealth){
   console.log(checkForHealth)
   bar.style.width = (parseInt(blue.Read(document, "hp") * 10)).toString()+"px"
 }
-else{
-  blue.Store(document, "hp", "5")
-}
-
 // Increase HP when the button is clicked
 kittyClick.addEventListener("click", async (event) => {
   if (parseInt(blue.Read(document, "hp")) * 10 > 249) {
@@ -33,8 +29,8 @@ kittyClick.addEventListener("click", async (event) => {
             { value: currentX, duration: 100 },
         ],
         translateY: [
-            { value: -20, duration: 100 },
-            { value: -0, duration: 100 }
+            { value: -30, duration: 100 },
+            { value: -7.5, duration: 100 }
         ]
     })
   }
@@ -43,7 +39,7 @@ kittyClick.addEventListener("click", async (event) => {
 // Decrease HP by 1 every second
 setInterval(() => {
   var currentHP = parseInt(blue.Read(document, "hp")) || 0;
-  if (currentHP > 0) {
+  if (currentHP > 0 && blue.Read(document, "stop") !== "true") {
     var newHP = (currentHP - 1) * 10;
     bar.style.width = `${newHP}px`;
     blue.Store(document, "hp", currentHP - 1);

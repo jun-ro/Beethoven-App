@@ -20,6 +20,7 @@ body {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
   -webkit-text-stroke-color: black;
+  transition: 0.3s;
 }
 
 .kitty-object {
@@ -29,7 +30,7 @@ body {
 }
 
 .kitty-object > img {
-  transform: translate(25%, -15%);
+  transform: translate(60px, -15px);
   width: 250px;
   height: 200px;
   touch-action: manipulation;
@@ -61,6 +62,106 @@ body {
   transition: 0.3s;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.overlay #prompt {
+  resize: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 250px;
+  height: 100px;
+  outline: none;
+  text-indent: 5px;
+  font-size: 15px;
+  padding-top: 5px;
+  font-family: "Anuphan", monospace;
+  font-weight: bold;
+}
+
+.overlay #submit {
+  background-color: #f9b5d0;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-family: "Anuphan", monospace;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: 25px;
+  transition: 0.1s;
+}
+
+.overlay #submit:active {
+  font-size: 20px;
+}
+
+.overlay #exit {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 15px;
+  border: none;
+  background-color: #f9b5d0;
+  font-family: "Anuphan", monospace;
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+  width: 50px;
+  height: 50px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  transition: 0.1s;
+}
+
+.overlay #exit:active {
+  font-size: 20px;
+}
+
+.buttonsList {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonsList button {
+  margin: 0 10px; /* add some margin between buttons */
+  font-size: 16px;
+  font-family: "Anuphan", monospace;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  transition: 0.1s;
+  width: 35px;
+  height: 35px;
+  border-color: black;
+}
+
+.buttonsList button:hover {
+  cursor: pointer;
+}
+
+.buttonsList #chat {
+  background-image: url("/storage/images/comment-regular.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 @media only screen and (max-device-width: 375px) and (max-device-height: 812px) {
   #response {
     transform: translateY(100px);
@@ -69,5 +170,14 @@ body {
     color: white;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
       1px 1px 0 #000;
+  }
+}
+
+@media only screen and (max-device-width: 414px) and (max-device-height: 896px) {
+  .kitty-object > img {
+    transform: translate(75px, -15px);
+    width: 250px;
+    height: 200px;
+    touch-action: manipulation;
   }
 }
