@@ -41,7 +41,7 @@ app.get("/", async (req, res) => {
 Hermes.ServeFolder("scripts", path.join(process.cwd(), "src/js"));
 Hermes.ServeFolder("styles", path.join(process.cwd(), "src/styles"));
 Hermes.ServeFolder("images", path.join(process.cwd(), "lol"));
-Hermes.ServeFolder("clientmodules", path.join(process.cwd(), "Modules/client"))
+Hermes.ServeFolder("clientmodules", path.join(process.cwd(), "Modules/client"));
 
 app.get("/api/use", rateLimiter, async (req, res) => {
   const input = req.query.input;
@@ -49,8 +49,12 @@ app.get("/api/use", rateLimiter, async (req, res) => {
   const modelPromise = use.load();
 
   // Define some example responses
-  const responses = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/large_dataset.json"), "utf-8"))
-
+  const responses = JSON.parse(
+    fs.readFileSync(
+      path.join(process.cwd(), "data/large_dataset.json"),
+      "utf-8"
+    )
+  );
 
   const model = await modelPromise;
   const inputEmbedding = await model.embed([input]);
@@ -65,14 +69,22 @@ app.get("/api/use", rateLimiter, async (req, res) => {
         .dot(responseEmbedding.transpose())
         .data();
       if (score > bestScore) {
-        bestMatch = responseText;
+        bestMatch = responseTexts;
         bestScore = score;
       }
     }
   }
 
-  // Output the best matching response to the user
-  res.send(bestMatch);
+  // If no matching response was found, send a default message
+  if (bestMatch.length === 0) {
+    res.send("I'm not sure what you mean, can you reword that?");
+  } else {
+    // Randomize the responses
+    const randomizedResponse =
+      bestMatch[Math.floor(Math.random() * bestMatch.length)];
+    // Output the randomized response to the user
+    res.send(randomizedResponse);
+  }
 });
 
 app.listen(port, async () => {
