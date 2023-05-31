@@ -1,7 +1,5 @@
-require("@tensorflow/tfjs-node");
 require("dotenv").config();
 const express = require("express");
-const use = require("@tensorflow-models/universal-sentence-encoder");
 const path = require("node:path");
 const Herm = require("./Modules/server/Hermes.js");
 const fs = require("node:fs");
@@ -49,9 +47,29 @@ Hermes.ServeFolder("clientmodules", path.join(process.cwd(), "Modules/client"));
 
 app.post("/api/use", rateLimiter, async (req, res) => {
   const inputStr = req.query.input;
-  const {input, responseHistory} = req.body
+  const messageHistory = req.body
 
-  console.log({input, responseHistory})
+  let generatedResponseHistory = []
+  let inputHistory = []
+
+  //Make the two different contexts
+  if(messageHistory.messageHistory.length > 2){
+    for(i = 0; i < messageHistory.messageHistory.length; i++){
+      if(i % 2 !== 0){
+        //Generated AI Responses
+        generatedResponseHistory.push(messageHistory.messageHistory[i])
+      }
+      else{
+        //Human Inputs
+        inputHistory.push(messageHistory.messageHistory[i])
+      }
+    }
+  }
+
+
+  console.log({generatedResponseHistory, inputHistory})
+
+  console.log(messageHistory)
   async function query(data) {
     const response = await fetch(
       "https://api-inference.huggingface.co/models/jun-ai/BeethovenBot",
@@ -68,8 +86,8 @@ app.post("/api/use", rateLimiter, async (req, res) => {
   try {
     query({
       inputs: {
-        "past_user_inputs": input,
-        "generated_responses": responseHistory,
+        "past_user_inputs": inputHistory || [],
+        "generated_responses": generatedResponseHistory || [],
         "text": inputStr.toString()
       },
     }).then((response) => {

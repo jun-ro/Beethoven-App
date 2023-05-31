@@ -468,11 +468,203 @@ body {
   }
 }
 
-@media only screen and (max-device-width: 414px) and (max-device-height: 896px) {
+@media only screen and (max-device-width: 1517px) and (max-device-height: 853px) {
+
+  .healthbar > .heart > img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .healthbar {
+    display: flex;
+    align-items: center; /* centers the items vertically */
+  }
+  
+  .heart {
+    display: inline-block;
+    margin-right: 10px; /* adds some space between the heart and the bar */
+  }
+
   .kitty-object > img {
-    transform: translate(75px, -15px);
+    transform: translate(42.5vw, -15px);
     width: 250px;
     height: 200px;
     touch-action: manipulation;
+  }
+
+  #response {
+    transform: translateY(100px);
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+  .chatbox-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100.25%;
+    z-index: 9999; /* Set a higher z-index value */
+    background-color: rgba(
+      0,
+      0,
+      0,
+      0.8
+    ); /* Set a black backdrop with some transparency */
+    backdrop-filter: blur(8px); /* Apply a blur effect */
+    animation-duration: 0.3s;
+    opacity: 1;
+  }
+
+  @keyframes fadechat {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  #chatbox-close {
+    width: 40px;
+    height: 40px;
+    border: none;
+    color: white;
+    background-color: #f9b5d0;
+    border: solid;
+    border-color: black;
+    outline: none;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .chatbox {
+    transform: translateY(-5vw);
+    position: relative;
+    width: 400px;
+    height: 465px; /* Set a fixed height for the chatbox */
+    overflow-y: auto; /* Enable vertical scrolling */
+    background-color: transparent;
+    border: solid;
+    border-color: black;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align the Human side on the right */
+    justify-content: flex-start; /* Align the AI side on the left */
+  }
+
+
+  .chatbox::-webkit-scrollbar{
+    width:10px;
+  }
+
+  .human,
+  .ai {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .human > p,
+  .ai > p {
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+  }
+
+  .human,
+  .ai {
+    text-align: center;
+    height: 50px;
+    width: 75px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+
+  .human {
+    align-self: flex-end;
+    background-color: white;
+  }
+
+  .ai {
+    align-self: flex-start;
+    background-color: #f9b5d0;
+  }
+
+  .human p,
+  .ai p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .ai > p {
+    color: white;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+
+  .ai {
+    align-self: flex-start; /* Align the AI side on the left */
+  }
+
+  .interactable {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-0.25)
+  }
+
+  #prompt {
+    transform: translate(0vw, 1vw);
+    margin-right: 10px;
+    height: 40px;
+    outline: none;
+    text-decoration: none;
+    text-indent: 5px;
+    font-size: 25px;
+    resize: none;
+  }
+
+  #submit {
+    margin: 0 auto;
+    border: solid;
+    border-radius: 5px;
+    height: 50px;
+    width: 50px;
+    outline: none;
+    text-decoration: none;
+    border: #000;
+    background-color: #f9b5d0;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  #submit:hover{
+    width:55px;
+    height:55px;
   }
 }

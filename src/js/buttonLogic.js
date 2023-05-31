@@ -77,11 +77,10 @@ chatButton.addEventListener("click", async (e) => {
   submitButton.addEventListener("click", async (e) => {
     const input = promptArea.value;
 
-    let inputHistory = JSON.parse(localStorage.getItem("input_history")) || [];
-    let responseHistory =
-      JSON.parse(localStorage.getItem("response_history")) || [];
     let messageHistory =
       JSON.parse(localStorage.getItem("message_history")) || [];
+
+    messageHistory.push(input);
 
     fetch(`/api/use?input=${input}`, {
       method: "POST",
@@ -89,18 +88,15 @@ chatButton.addEventListener("click", async (e) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        input: inputHistory,
-        responseHistory: responseHistory,
+        messageHistory: messageHistory,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         const generatedResponse = data.generated_text;
 
-        responseHistory.push(generatedResponse); // Add the generated response to the response history
-        inputHistory.push(input); // Add the user input to the input history
-        messageHistory.push(input);
         messageHistory.push(generatedResponse);
+
         let humanDiv = document.createElement("div");
         humanDiv.className = "human";
         let humanText = document.createElement("p");
@@ -115,16 +111,7 @@ chatButton.addEventListener("click", async (e) => {
         aiDiv.appendChild(aiText); // Append the text to the div
         chatbox.appendChild(aiDiv);
 
-        localStorage.setItem("input_history", JSON.stringify(inputHistory));
-        localStorage.setItem(
-          "response_history",
-          JSON.stringify(responseHistory)
-        ); // Store the updated response history in localStorage
         localStorage.setItem("message_history", JSON.stringify(messageHistory));
-
-        console.log("Generated Response: ", generatedResponse);
-        console.log("Updated Response History: ", responseHistory);
-
         // Perform other actions with the generated response as needed
       })
       .catch((error) => {
