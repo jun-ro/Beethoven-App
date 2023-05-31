@@ -7,12 +7,14 @@
   ],
   "what is your name": [
     "My name is Beethoven!",
-    "I'm called I'm Beethoven!",
+    "I'm called Beethoven!",
     "I'm Beethoven!"
   ],
   "Meow": ["Meow meow meow", "Purr purr purr", "Meow!"],
   "Should I make the AI have our personalities": [
     "🤓",
     "NO DO NOT MAKE IT US😭"
-  ]
+  ],
+  "I love you":["I love you more!", "I love you too buddy."],
+  "Meth please?":["No."]
 }
